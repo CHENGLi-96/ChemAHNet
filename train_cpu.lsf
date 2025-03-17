@@ -1,0 +1,22 @@
+#!/bin/bash
+#BSUB -J py            ##job name
+#BSUB -q v3-64      ##queue name
+#BSUB -n 12              ##number of total cores
+#BSUB -e %J.err
+#BSUB -o %J.out
+#BSUB -R "span[ptile=12]" ##每个 host 上的 CPU 核数
+hostfile=`echo $LSB_DJOB_HOSTFILE`
+NP=`cat $hostfile | wc -l`
+echo $LSB_HOSTS |sed 's/ /\n/g'|sort|uniq >mycluster
+echo $LSB_JOBID >log
+#env
+#source ~/softwares/python/anaconda3/2021.11/anaconda.2021.11.source
+#source activate  
+#conda deactivate #退出当前环境
+conda activate leash   #进入指定的conda环境,此处 'env_name' 按需要修改
+#workscript
+python main_10fold.py --local_rank 0 --world_size 1 --train \
+--vae \
+--batch_size 11 --dropout=0.2 --num_heads 8 --num_layers 9 --embed_dim 256 --max_length 256 --output_dim 256 \
+--prefix data --name tmp --epochs 250  > $LSB_JOBID.log 2>&1 #此处work.py为python脚本文件名称，按需要修改
+conda deactivate #执行结束，退出加载的环境
