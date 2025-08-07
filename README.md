@@ -28,9 +28,9 @@ defined in `preprocess.py`.
 
 ## Description of Python Scripts and Their Functions
 
-`main_Major.py` – This script trains a model for predicting the absolute configuration of the major enantiomer in asymmetric hydrogenation of olefins.
+`main_Majorgit.py` – This script trains a model for predicting the absolute configuration of the major enantiomer in asymmetric hydrogenation of olefins.
 
-`main_ddG.py` – This script trains a regression model for predicting ddG values, enabling simultaneous prediction of the stereoselectivity and absolute configuration in asymmetric hydrogenation of olefins.
+`main_ddGgit.py` – This script trains a regression model for predicting ddG values, enabling simultaneous prediction of the stereoselectivity and absolute configuration in asymmetric hydrogenation of olefins.
 
 `main_10fold.py` –  This script performs 10-fold cross-validation on the dataset for Rh/BINOL-phosphite-catalyzed hydrogenation of trisubstituted olefins, assessing the predictive performance of ChemAHNet.
 
@@ -39,19 +39,28 @@ defined in `preprocess.py`.
 
 ## Training
 
+You can train the model using the following command:
+
 ```bash
-python main_Major.py --local_rank 0  --train \
---batch_size 128 --dropout=0.2 --num_heads 8 --num_layers 6 --embed_dim 256 --max_length 256 --output_dim 256 \
+python main_Majorgit.py --local_rank 0 --train \
+--batch_size 128 --dropout=0.2 --num_heads 8 --num_layers 6 \
+--embed_dim 256 --max_length 256 --output_dim 256 \
 --prefix data --name tmp --epochs 250
 ```
+Alternatively, you can also use the provided shell script:
+bash train_Major_train.sh
+bash train_ddG_train.sh
 
 ## Testing
-
+To evaluate a trained model, run:
 ```bash
-python main_Major.py --local_rank 0  --test \
+python main_Majorgit.py --local_rank 0  --test \
 --batch_size 128 --dropout=0.2 --num_heads 8 --num_layers 6 --embed_dim 256 --max_length 256 --output_dim 256 \
 --prefix data --name tmp --epochs 250
 ```
+Or simply:
+bash train_Major_test.sh
+bash train_ddG_test.sh
 
 ## ChemAHNet Explainability
 
