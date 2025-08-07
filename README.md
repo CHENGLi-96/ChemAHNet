@@ -48,9 +48,10 @@ python main_Majorgit.py --local_rank 0 --train \
 --prefix data --name tmp --epochs 250
 ```
 Alternatively, you can also use the provided shell script:
+```bash
 bash train_Major_train.sh      # for the Major classification model
 bash train_ddG_train.sh        # for the ddG regression model
-
+```
 
 ## Testing
 To evaluate a trained model, run:
@@ -60,8 +61,10 @@ python main_Majorgit.py --local_rank 0  --test \
 --prefix data --name tmp --epochs 250
 ```
 Or simply:
+```bash
 bash train_Major_test.sh       # for the Major classification model
 bash train_ddG_test.sh         # for the ddG regression model
+```
 
 These scripts automatically activate the conda environment, run the proper configuration, and write logs to files.
 ## ChemAHNet Explainability
